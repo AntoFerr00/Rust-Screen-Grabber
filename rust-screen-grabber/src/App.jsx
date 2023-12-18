@@ -20,9 +20,11 @@ function App() {
   const [captureType, setCaptureType] = useState("png");
   const [recordType, setRecordType] = useState("mov");
   const [clipboard, setClipboard] = useState(false);
-  const [openFile, setOpenFile] = useState(true);
-  const [externalAudio, setExternalAudio] = useState(false);
+  const [openFile, setOpenFile] = useState(false);
+  const [externalAudio, setExternalAudio] = useState(true);
   const [hotkeys, setHotkeys] = useState(false);
+  //const [operationInProgress, setOperationInProgress] = useState(false);
+
 
 
     async function capture(mode, view, duration, pointer, filePath, fileType, clipboard, openFile) {
@@ -31,6 +33,14 @@ function App() {
         setCountdown(duration);
         setIsCounting(true);
         setCapturing(true);
+        /*
+        if (operationInProgress) {
+            console.log("Operation already in progress");
+            return;
+        }
+        */
+    
+        //setOperationInProgress(true);
 
         if(view === "custom") {
             await selector.hide();
@@ -56,6 +66,7 @@ function App() {
             .then( (response) => {
                 setText(response.response || response.error)
                 setTimeout(() => setText(undefined), 5000);
+                //setOperationInProgress(false);
             })
             .catch((err) => {
                 setText(err);
@@ -68,6 +79,8 @@ function App() {
 
                     setCapturing(false);
                     setView("fullscreen");
+
+                    //setOperationInProgress(false);
                 });
     }
 
