@@ -88,6 +88,11 @@ function App() {
 
     }, [countdown, isCounting]);
 
+    useEffect(() => {
+        // prevent listening of hotkeys and shortcuts
+        
+    });
+
     async function stopCapture() {
         setCountdown(0);
         setIsCounting(false);
@@ -217,7 +222,6 @@ function App() {
     });
 
     useEffect( () => {
-
                 invoke("current_default_path")
                     .then((result) => {
                         if (result.response)
