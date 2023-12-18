@@ -23,9 +23,6 @@ function App() {
   const [openFile, setOpenFile] = useState(false);
   const [externalAudio, setExternalAudio] = useState(true);
   const [hotkeys, setHotkeys] = useState(false);
-  //const [operationInProgress, setOperationInProgress] = useState(false);
-
-
 
     async function capture(mode, view, duration, pointer, filePath, fileType, clipboard, openFile) {
         let selector = WebviewWindow.getByLabel('selector');
@@ -33,14 +30,6 @@ function App() {
         setCountdown(duration);
         setIsCounting(true);
         setCapturing(true);
-        /*
-        if (operationInProgress) {
-            console.log("Operation already in progress");
-            return;
-        }
-        */
-    
-        //setOperationInProgress(true);
 
         if(view === "custom") {
             await selector.hide();
@@ -66,7 +55,6 @@ function App() {
             .then( (response) => {
                 setText(response.response || response.error)
                 setTimeout(() => setText(undefined), 5000);
-                //setOperationInProgress(false);
             })
             .catch((err) => {
                 setText(err);
@@ -79,8 +67,6 @@ function App() {
 
                     setCapturing(false);
                     setView("fullscreen");
-
-                    //setOperationInProgress(false);
                 });
     }
 
@@ -200,12 +186,12 @@ function App() {
     useEffect(() => {
         const promise = listen("custom_capture", async () => {
             WebviewWindow.getByLabel('selector').isVisible().then( async (value) => {
-                if(value) await capture("capture", "custom", duration, pointer, filePath, captureType, clipboard, openFile);
-                else await setCaptureCustom();
+            if(value) await capture("capture", "custom", duration, pointer, filePath, captureType, clipboard, openFile);
+            else await setCaptureCustom();
             })
         });
         return () => promise.then(remove => remove());
-    });
+        });
     useEffect(() => {
         const promise = listen("fullscreen_record", async () => {
             setRecordFullscreen().then(async () => await capture("record", "fullscreen", duration, pointer, filePath, recordType, clipboard, openFile));

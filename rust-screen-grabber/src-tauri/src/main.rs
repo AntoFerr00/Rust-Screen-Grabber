@@ -11,6 +11,8 @@ use tauri::{Manager, SystemTray, SystemTrayEvent};
 use std::sync::Arc;
 use std::sync::Mutex;
 use tauri::api::notification::Notification;
+use std::time::{Duration, Instant};
+use std::collections::HashMap;
 
 #[cfg(target_os="macos")]
 use tauri::utils::TitleBarStyle;
@@ -38,7 +40,7 @@ mod linux;
 
 #[tauri::command(rename_all = "snake_case")]
 async fn capture(app: AppHandle, window: Window, mode: &str, view: &str, area: &str, timer: u64, pointer: bool, file_path: &str, file_type: &str, clipboard: bool, audio: bool, open_file: bool) -> Result<Response, String> {
-    println!{"{:?}", file_path};
+    //println!{"{:?}", file_path};
     let abs_path: String;
     let fs_path = Path::new(file_path);
 
@@ -133,6 +135,7 @@ async fn capture(app: AppHandle, window: Window, mode: &str, view: &str, area: &
 
 #[tokio::main]
 async fn main() {
+
     tauri::Builder::default()
         .setup(|app| {
 
@@ -317,6 +320,7 @@ async fn main() {
             }
 
             #[cfg(target_os = "windows")] {
+                
                 main_window = tauri::WindowBuilder::new(
                     app,
                     "main_window",
@@ -415,6 +419,7 @@ async fn main() {
             let open_after_record = Arc::new(Mutex::new(true));
             let hotkeys_ = hotkeys.clone();
 
+
             #[cfg(target_os = "windows")] {
                 let capture_mouse_pointer_ = capture_mouse_pointer.clone();
                 let copy_to_clipboard_ = copy_to_clipboard.clone();
@@ -429,6 +434,9 @@ async fn main() {
     
                 let main_window_ = main_window.clone();
                 let _task = tokio::task::spawn( async move {
+                    
+                    let last_triggered_times: Arc<Mutex<HashMap<String, Instant>>> = Arc::new(Mutex::new(HashMap::new()));    
+                    let debounce_duration = Duration::from_millis(10); // Set a debounce interval, e.g., 300 milliseconds
                     let hotkeys = GlobalHotkeySet::new()
                         .add_global_hotkey("fullscreen_capture", map.get("fullscreen_capture").unwrap().clone())
                         .add_global_hotkey("custom_capture", map.get("custom_capture").unwrap().clone())
@@ -442,9 +450,19 @@ async fn main() {
                         .add_global_hotkey("stop_recording", map.get("stop_recording").unwrap().clone());
                         match hotkeys.listen_for_hotkeys() {
                             Ok(iterator) => {
+                                
                                 // Now iterate over the iterator if Result is Ok
                                 for action_result in iterator {
                                     let action = action_result.unwrap();
+                                    let mut last_times = last_triggered_times.lock().unwrap();
+                                    let now = Instant::now();
+                                    if let Some(&last_time) = last_times.get(&action.to_string()) {
+                                        //println!("{:?}, {:?}", now, last_time);
+                                        if now.duration_since(last_time) < debounce_duration {
+                                            continue; // Skip this hotkey as it was triggered recently
+                                        }
+                                    }
+                                    last_times.insert(action.to_string().clone(), now);
                                     match action {
                                             "copy_to_clipboard" => {
                                                 let mut data = copy_to_clipboard_.lock().unwrap();
@@ -474,17 +492,19 @@ async fn main() {
                                                 *data = !*data;
                                                 main_window_.menu_handle().get_item("record_external_audio").set_selected(*data).unwrap();
                                             }
-                                            _ => {}
+                                            _ => {
+                                                main_window_.emit(action, {}).unwrap();
+                                                std::thread::sleep(std::time::Duration::from_millis(50));
+                                            }
                                         }
-                                        main_window_.emit(action, {}).unwrap();
-                                        std::thread::sleep(std::time::Duration::from_secs(10));
                                     }
                                 }
                             Err(e) => eprintln!("Error listening for hotkeys: {:?}", e),
                         }
                     });
                 }   
-
+            
+            
             let window_ = main_window.clone();
             let capture_mouse_pointer_ = capture_mouse_pointer.clone();
             let copy_to_clipboard_ = copy_to_clipboard.clone();
@@ -533,7 +553,7 @@ async fn main() {
                 }
                 window_.emit_to("main_window", event.menu_item_id(), {}).unwrap();
             });
-
+            
             #[cfg(target_os = "macos")] {
                 let area_ = area.clone();
                 let capture_mouse_pointer_ = capture_mouse_pointer.clone();

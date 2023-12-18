@@ -188,7 +188,7 @@ pub async fn record_fullscreen(window: Window, filename: &str, timer: u64, _poin
         // Add more formats as needed
         _ => return Response::new(None, Some(format!("Unsupported file format: {}", filename_extension))),
     };
-    println!("{}x{}", size.width, size.height);
+    //println!("{}x{}", size.width, size.height);
     let mut command = stdCommand::from(tauriCommand::new_sidecar("ffmpeg").unwrap()
         .args(["-f", "gdigrab"])
         .args(["-framerate", "30"])
