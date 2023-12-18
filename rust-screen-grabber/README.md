@@ -1,4 +1,4 @@
-<img width="25%" src="./rust-screen-grabber/src-tauri/icons/Square310x310Logo.png">
+<img width="25%" src="./src-tauri/icons/Square310x310Logo.png">
 
 # Rust Screen Grabber
 
@@ -8,15 +8,15 @@ A cross-platform screen grabbing utility written in Rust
 ## Screenshots
 - macOS:
 
-    ![Screenshot](./rust-screen-grabber/screenshots/RustScreenGrabber_macOS.png)
+    ![Screenshot](./screenshots/Rust-Screen-Grabber_macOS.png)
 
 - Windows:
 
-    ![Screenshot](./rust-screen-grabber/screenshots/RustScreenGrabber_Windows.png)
+    ![Screenshot](./screenshots/Rust-Screen-Grabber_Windows.png)
 
 - Debian Linux:
 
-    ![Screenshot](./rust-screen-grabber/screenshots/RustScreenGrabber_Linux.png)
+    ![Screenshot](./screenshots/Rust-Screen-Grabber_Linux.png)
 
 ## Features
 
@@ -42,9 +42,9 @@ A cross-platform screen grabbing utility written in Rust
 - macOS 10.x 
 
 ### Setups
-- [Windows](rust-screen-grabber/setup/windows.ps1)
-- [Debian](rust-screen-grabber/setup/debian.sh)
-- [Darwin](rust-screen-grabber/setup/darwin.sh)
+- [Windows](setup/windows.ps1)
+- [Debian](setup/debian.sh)
+- [Darwin](setup/darwin.sh)
 
 ### Commands
 

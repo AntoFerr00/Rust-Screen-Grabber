@@ -1,0 +1,111 @@
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Buttons */
+button {
+  background-color: #4CAF50;
+  border: none;
+  padding: 10px 15px;
+  color: #ffffff;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #388E3C;
+}
+
+/* Form Elements */
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #FF9800;
+}
+
+/* Texts */
+h1 {
+  color: #FF9800;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Icons */
+.svg-icon {
+  fill: #4CAF50;
+  width: 1em;
+  height: 1em;
+}
+
+/* Utility Classes */
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mx-2 {
+  margin: 0 20px;
+}
+
+.m-1 {
+  margin: 10px;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+/* Custom Styles */
+.background-container {
+  background-color: #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .flex-row {
+    flex-direction: column;
+  }
+}

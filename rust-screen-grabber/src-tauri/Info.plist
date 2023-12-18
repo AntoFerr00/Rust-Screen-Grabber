@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Rust Screen Grabber uses the microphone to register external audio while recording the screen</string>
+  <key>LSUIElement</key>
+  <string>1</string>
+  <key>NSCameraUseContinuityCameraDeviceType</key>
+  <string>Rust Screen Grabber would like to record your screen</string>
+</dict>
+</plist>

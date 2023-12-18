@@ -1,0 +1,37 @@
+{
+  "name": "Rust Screen Grabber",
+  "private": true,
+  "version": "1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/plugin-dialog": "^2.0.0-alpha.0",
+    "@tldraw/tldraw": "1.29.2",
+    "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.10.5",
+    "dayjs": "^1.11.9",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-color": "^2.19.3",
+    "react-countdown": "^2.3.5",
+    "react-dom": "^18.2.0",
+    "react-file-picker": "^0.0.6",
+    "react-native": "^0.72.4",
+    "react-native-fs": "^2.20.0",
+    "tauri-plugin-spotlight-api": "^0.1.2",
+    "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/api": "^1.4.0",
+    "@tauri-apps/cli": "^1.4.0",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^3.0.0",
+    "vite": "^4.2.1"
+  }
+}
