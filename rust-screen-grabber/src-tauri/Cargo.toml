@@ -1,5 +1,5 @@
 [package]
-name = "screen-crab"
+name = "rust-screen-grabber"
 version = "1.0.0"
 description = "A cross-platform screen grabbing utility in Rust"
 authors = ["you"]

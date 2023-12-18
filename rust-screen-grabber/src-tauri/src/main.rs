@@ -38,6 +38,7 @@ mod linux;
 
 #[tauri::command(rename_all = "snake_case")]
 async fn capture(app: AppHandle, window: Window, mode: &str, view: &str, area: &str, timer: u64, pointer: bool, file_path: &str, file_type: &str, clipboard: bool, audio: bool, open_file: bool) -> Result<Response, String> {
+    println!{"{:?}", file_path};
     let abs_path: String;
     let fs_path = Path::new(file_path);
 
@@ -409,8 +410,8 @@ async fn main() {
 
             let capture_mouse_pointer = Arc::new(Mutex::new(false));
             let copy_to_clipboard = Arc::new(Mutex::new(false));
-            let edit_after_capture = Arc::new(Mutex::new(true));
-            let record_external_audio = Arc::new(Mutex::new(false));
+            let edit_after_capture = Arc::new(Mutex::new(false));
+            let record_external_audio = Arc::new(Mutex::new(true));
             let open_after_record = Arc::new(Mutex::new(true));
             let hotkeys_ = hotkeys.clone();
 
@@ -578,7 +579,13 @@ async fn main() {
                         "learn_more" => {
                             webbrowser::open("https://github.com/s316467/Rust-Screen-Grabber/tree/main/README.md").unwrap();
                         }
-                        _ => {}
+                        _ => {
+                            /* 
+                            if !event.is_handled() {
+                                area_.emit_to("main_window", event.menu_item_id(), {}).unwrap();
+                            }
+                            */
+                        }
                     }
                     area_.emit_to("main_window", event.menu_item_id(), {}).unwrap();
                 });
