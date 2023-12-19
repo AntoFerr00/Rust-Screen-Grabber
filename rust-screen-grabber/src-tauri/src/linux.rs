@@ -79,7 +79,7 @@ pub async fn capture_custom(window: Window, area: &str, filename: &str, _file_ty
         });
     });
     let output = sleep_command.wait_with_output().unwrap();
-    println!("{:?}", output);
+    //println!("{:?}", output);
     if !output.status.success() {
         return Response::new(None, Some(format!("Rust Screen Grabber cancelled")));
     }
@@ -205,7 +205,7 @@ pub async fn record_custom(window: Window, area: &str, filename: &str, timer: u6
         });
     });
     let output = sleep_command.wait_with_output().unwrap();
-    println!("{:?}", output);
+    //println!("{:?}", output);
     if !output.status.success() {
         return Response::new(None, Some(format!("Rust Screen Grabber cancelled")));
     }
