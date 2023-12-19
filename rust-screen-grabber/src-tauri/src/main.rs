@@ -38,7 +38,7 @@ mod linux;
 
 #[tauri::command(rename_all = "snake_case")]
 async fn capture(app: AppHandle, window: Window, mode: &str, view: &str, area: &str, timer: u64, pointer: bool, file_path: &str, file_type: &str, clipboard: bool, audio: bool, open_file: bool) -> Result<Response, String> {
-    println!{"{:?}", file_path};
+    //println!{"{:?}", file_path};
     let abs_path: String;
     let fs_path = Path::new(file_path);
 
